@@ -19,19 +19,18 @@ public class ServiceAuthJWT {
     private UserServices userServices;
     public static final Key TOKEN_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS512);
 
-    public ResponseLoginDTO autenticacao(UserLoginDTO usuario) {
-        if (!userServices.validarUsuarioSenha(usuario)) {
+    public ResponseLoginDTO authentication(UserLoginDTO user) {
+        if (!userServices.validateUserPassword(user)) {
             throw new LoginInvalidoException(
                     "Login falhou, O usuário não foi autenticado. A requisição de login foi processada com sucesso, mas as informações passadas não foram corretas para autenticar o usuário com sucesso.");
         }
-
-        String token = gerarToken(usuario.getEmail());
+        String token = generateToken(user.getEmail());
         return new ResponseLoginDTO(token);
     }
 
 
 
-    private String gerarToken(String email) {
+    private String generateToken(String email) {
         return Jwts.builder()
                 .setHeaderParam("typ", "JWT")
                 .setSubject(email)
@@ -44,7 +43,6 @@ public class ServiceAuthJWT {
         if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
             throw new SecurityException("Token inexistente ou mal formatado!");
         }
-
         // Extraindo apenas o token do cabecalho.
         String token = authorizationHeader.substring(FiltroDeTokens.TOKEN_INDEX);
 

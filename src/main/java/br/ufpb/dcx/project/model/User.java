@@ -1,5 +1,6 @@
 package br.ufpb.dcx.project.model;
 
+import br.ufpb.dcx.project.dto.PostUserDTO;
 import br.ufpb.dcx.project.enuns.Papel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -37,7 +38,13 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Donate> donates;
 
-
+    public User getUser(PostUserDTO userPost){
+        this.name = userPost.getName();
+        this.email = userPost.getEmail();
+        this.password = userPost.getPassword();
+        this.papel = userPost.getPapel();
+        return this;
+    }
 
 
 }
