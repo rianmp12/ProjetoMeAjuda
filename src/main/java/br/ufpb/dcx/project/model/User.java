@@ -1,7 +1,6 @@
 package br.ufpb.dcx.project.model;
 
 import br.ufpb.dcx.project.enuns.Papel;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.UniqueElements;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,7 +15,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Usuario {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,25 +27,17 @@ public class Usuario {
     private String password;
     private String tell;
 
-    private String identidade;
-
+    private String entity;
+    private String userClass;
     private Papel papel = Papel.USER;
 
+    @OneToMany(mappedBy = "user")
+    private List<Campaign> campaigns;
+
+    @OneToMany(mappedBy = "user")
+    private List<Donate> donates;
 
 
-
-    public Usuario getUser(DTOPostUsuario userPost){
-        this.name = userPost.getName();
-        this.email = userPost.getEmail();
-        this.password = userPost.getPassword();
-        this.papel = userPost.getPapel();
-        return this;
-    }
-
-    public void addComment(Comentario comment){
-        this.getComments().add(comment);
-        comment.setUser(this);
-    }
 
 
 }

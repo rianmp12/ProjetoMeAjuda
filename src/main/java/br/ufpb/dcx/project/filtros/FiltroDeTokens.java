@@ -11,7 +11,7 @@ import org.springframework.web.filter.GenericFilterBean;
 
 import java.io.IOException;
 
-import static br.ufpb.dcx.project.servicos.AutenticacaoServico.TOKEN_KEY;
+import static br.ufpb.dcx.project.servicos.ServiceAuthJWT.TOKEN_KEY;
 
 
 public class FiltroDeTokens extends GenericFilterBean {

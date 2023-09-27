@@ -1,6 +1,8 @@
 package br.ufpb.dcx.project.servicos;
 
 
+import br.ufpb.dcx.project.dto.ResponseLoginDTO;
+import br.ufpb.dcx.project.dto.UserLoginDTO;
 import br.ufpb.dcx.project.excecoes.LoginInvalidoException;
 import br.ufpb.dcx.project.filtros.FiltroDeTokens;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,19 +14,19 @@ import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 
 @Service
-public class AutenticacaoServico {
+public class ServiceAuthJWT {
     @Autowired
-    private UsuarioServico servicoUsuario;
+    private UserServices userServices;
     public static final Key TOKEN_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS512);
 
-    public DTOLoginResposta autenticacao(DTOLoginUsuario usuario) {
-        if (!servicoUsuario.validarUsuarioSenha(usuario)) {
+    public ResponseLoginDTO autenticacao(UserLoginDTO usuario) {
+        if (!userServices.validarUsuarioSenha(usuario)) {
             throw new LoginInvalidoException(
                     "Login falhou, O usuário não foi autenticado. A requisição de login foi processada com sucesso, mas as informações passadas não foram corretas para autenticar o usuário com sucesso.");
         }
 
         String token = gerarToken(usuario.getEmail());
-        return new DTOLoginResposta(token);
+        return new ResponseLoginDTO(token);
     }
 
 
