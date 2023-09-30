@@ -1,12 +1,15 @@
 package br.ufpb.dcx.project.model;
 
 
+import br.ufpb.dcx.project.dto.UserDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.Date;
 
 @Entity
 @Getter
@@ -28,4 +31,14 @@ public class Donate {
     private Campaign campaign;
     @Positive(message = "O valor deve ser maior que zero")
     private Double donate;
+    private Date dateDonate;
+
+
+    public Donate getDonate(Campaign campaign, User user, Double value){
+        this.user = user;
+        this.donate = value;
+        this.campaign = campaign;
+        this.dateDonate = new Date();
+        return this;
+    }
 }

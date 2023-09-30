@@ -46,5 +46,15 @@ public class User {
         return this;
     }
 
+    public Campaign getCampaignByID(Long id){
+
+        for (Campaign c: this.campaigns){
+            if (c.getId() == id){
+                return c;
+            }
+        }
+        return null;
+    }
+
 
 }

@@ -25,7 +25,7 @@ public class Campaign {
     @JoinColumn(name = "user_id")
     private User user;
 
-    private boolean status;
+    private boolean status = true;
 
     @Size(max = 100, message = "A mensagem não deve ter mais de 100 caracteres")
     @NotNull
@@ -48,4 +48,15 @@ public class Campaign {
 
     @Future(message = "A data de prazo para finalização da campanha deve estar no futuro")
     private Date deadlineDate;
+
+    public void makeDonate(Donate donate){
+        this.collected.add(donate);
+        donate.setCampaign(this);
+    }
+
+    public Donate addDonate(Donate donate){
+        this.collected.add(donate);
+        meta+= donate.getDonate();
+        return donate;
+    }
 }
