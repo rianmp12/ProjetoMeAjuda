@@ -1,4 +1,4 @@
-package br.ufpb.dcx.project.filtros;
+package br.ufpb.dcx.project.filter;
 
 import io.jsonwebtoken.*;
 import jakarta.servlet.FilterChain;
@@ -11,7 +11,7 @@ import org.springframework.web.filter.GenericFilterBean;
 
 import java.io.IOException;
 
-import static br.ufpb.dcx.project.servicos.ServiceAuthJWT.TOKEN_KEY;
+import static br.ufpb.dcx.project.service.ServiceAuthJWT.TOKEN_KEY;
 
 
 public class FiltroDeTokens extends GenericFilterBean {

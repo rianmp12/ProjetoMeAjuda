@@ -1,4 +1,4 @@
-package br.ufpb.dcx.project.excecoes;
+package br.ufpb.dcx.project.exception;
 
 public class LoginInvalidoException extends RuntimeException{
     public LoginInvalidoException(String message) {

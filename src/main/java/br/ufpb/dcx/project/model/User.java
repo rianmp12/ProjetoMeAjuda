@@ -32,10 +32,10 @@ public class User {
     private String userClass;
     private Papel papel = Papel.USER;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Campaign> campaigns;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Donate> donates;
 
     public User getUser(PostUserDTO userPost){

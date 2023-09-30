@@ -1,17 +1,19 @@
-package br.ufpb.dcx.project.servicos;
+package br.ufpb.dcx.project.service;
 
 import br.ufpb.dcx.project.dto.PostUserDTO;
 import br.ufpb.dcx.project.dto.UserDTO;
 import br.ufpb.dcx.project.dto.UserLoginDTO;
 import br.ufpb.dcx.project.enuns.Papel;
-import br.ufpb.dcx.project.excecoes.UnauthorizedOperationException;
-import br.ufpb.dcx.project.excecoes.UserExistException;
-import br.ufpb.dcx.project.excecoes.UserNotFoundException;
+import br.ufpb.dcx.project.exception.UnauthorizedOperationException;
+import br.ufpb.dcx.project.exception.UserExistException;
+import br.ufpb.dcx.project.exception.UserNotFoundException;
 import br.ufpb.dcx.project.model.User;
 import br.ufpb.dcx.project.repository.RepositoryUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -23,6 +25,17 @@ public class UserServices {
     @Autowired
     private ServiceAuthJWT serviceAuthJWT;
 
+
+    public List<UserDTO> getAllUserDTO(){
+        List<User> users =  repositoryUsers.findAll();
+
+        List<UserDTO> dtoUsers = new ArrayList<>();
+        for(User user: users){
+            dtoUsers.add(new UserDTO().getDTOUser(user));
+        }
+
+        return dtoUsers;
+    }
     public UserDTO addUser(PostUserDTO user){
         Optional<User> userExist  = repositoryUsers.findByEmail(user.getEmail());
         if (userExist.isPresent()) {
@@ -71,7 +84,7 @@ public class UserServices {
     public boolean checkUserPermission(String authorizationHeader, String email) {
         String subject = serviceAuthJWT.getSujeitoDoToken(authorizationHeader);
         Optional<User> optUsuario = repositoryUsers.findByEmail(subject);
-        return optUsuario.isPresent() && optUsuario.get().getEmail().equals(email);
+        return optUsuario.get().getPapel().equals(Papel.ADMIN) || optUsuario.get().getEmail().equals(email);
     }
 
     public User getUser(String email) {

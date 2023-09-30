@@ -1,6 +1,6 @@
 package br.ufpb.dcx.project;
 
-import br.ufpb.dcx.project.filtros.FiltroDeTokens;
+import br.ufpb.dcx.project.filter.FiltroDeTokens;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;

@@ -1,4 +1,4 @@
-package br.ufpb.dcx.project.excecoes;
+package br.ufpb.dcx.project.exception;
 
 import lombok.Getter;
 import lombok.Setter;

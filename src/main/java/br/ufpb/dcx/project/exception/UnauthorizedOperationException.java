@@ -1,4 +1,4 @@
-package br.ufpb.dcx.project.excecoes;
+package br.ufpb.dcx.project.exception;
 
 public class UnauthorizedOperationException extends RuntimeException{
     public UnauthorizedOperationException(String message) {

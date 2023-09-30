@@ -1,10 +1,10 @@
-package br.ufpb.dcx.project.servicos;
+package br.ufpb.dcx.project.service;
 
 
 import br.ufpb.dcx.project.dto.ResponseLoginDTO;
 import br.ufpb.dcx.project.dto.UserLoginDTO;
-import br.ufpb.dcx.project.excecoes.LoginInvalidoException;
-import br.ufpb.dcx.project.filtros.FiltroDeTokens;
+import br.ufpb.dcx.project.exception.LoginInvalidoException;
+import br.ufpb.dcx.project.filter.FiltroDeTokens;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.security.Key;
