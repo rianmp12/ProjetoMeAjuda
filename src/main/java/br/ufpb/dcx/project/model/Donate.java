@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -31,14 +32,14 @@ public class Donate {
     private Campaign campaign;
     @Positive(message = "O valor deve ser maior que zero")
     private Double donate;
-    private Date dateDonate;
+    private LocalDateTime dateDonate;
 
 
     public Donate getDonate(Campaign campaign, User user, Double value){
         this.user = user;
         this.donate = value;
         this.campaign = campaign;
-        this.dateDonate = new Date();
+        this.dateDonate = LocalDateTime.now();
         return this;
     }
 }

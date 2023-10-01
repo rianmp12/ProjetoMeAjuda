@@ -40,11 +40,38 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(problemDetails);
     }
 
+    @ExceptionHandler(CampaignNotCloseException.class)
+    public ResponseEntity<ProblemDetails> handleUnauthorizedOperation(CampaignNotCloseException ex) throws URISyntaxException {
+        ProblemDetails problemDetails = new ProblemDetails();
+        problemDetails.setType(new URI("about:blank"));
+        problemDetails.setTitle("Campanha não pode ser expirada");
+        problemDetails.setDetail(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(problemDetails);
+    }
+
+    @ExceptionHandler(CampaignExpiredException.class)
+    public ResponseEntity<ProblemDetails> handleUnauthorizedOperation(CampaignExpiredException ex) throws URISyntaxException {
+        ProblemDetails problemDetails = new ProblemDetails();
+        problemDetails.setType(new URI("about:blank"));
+        problemDetails.setTitle("Campanha expirada");
+        problemDetails.setDetail(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(problemDetails);
+    }
+
     @ExceptionHandler(LoginInvalidoException.class)
     public ResponseEntity<ProblemDetails> handleLoginInvalid(LoginInvalidoException ex) throws URISyntaxException {
         ProblemDetails problemDetails = new ProblemDetails();
         problemDetails.setType(new URI("about:blank"));
         problemDetails.setTitle("Login Inválido");
+        problemDetails.setDetail(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.OK).body(problemDetails);
+    }
+
+    @ExceptionHandler(InvalidDonateException.class)
+    public ResponseEntity<ProblemDetails> handleLoginInvalid(InvalidDonateException ex) throws URISyntaxException {
+        ProblemDetails problemDetails = new ProblemDetails();
+        problemDetails.setType(new URI("about:blank"));
+        problemDetails.setTitle("Donate Inválido");
         problemDetails.setDetail(ex.getMessage());
         return ResponseEntity.status(HttpStatus.OK).body(problemDetails);
     }

@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
@@ -44,19 +46,31 @@ public class Campaign {
     private List<Donate> collected;
 
     @PastOrPresent(message = "A data de criação da campanha deve estar no passado ou no presente")
-    private Date creationDate;
+    private LocalDateTime creationDate;
 
     @Future(message = "A data de prazo para finalização da campanha deve estar no futuro")
-    private Date deadlineDate;
-
-    public void makeDonate(Donate donate){
-        this.collected.add(donate);
-        donate.setCampaign(this);
-    }
+    private LocalDateTime deadlineDate;
 
     public Donate addDonate(Donate donate){
         this.collected.add(donate);
-        meta+= donate.getDonate();
         return donate;
     }
+
+    public Double donateCollected(){
+        Double collection = 0.0;
+        for (Donate d: this.collected){
+            collection+= d.getDonate();
+        }
+        return collection;
+    }
+
+
+    public boolean checkAndUpdateStatus() {
+        LocalDateTime currentDate = LocalDateTime.now();
+        if (deadlineDate != null && deadlineDate.isBefore(currentDate)) {
+            status = false;
+        }
+        return isStatus();
+    }
+
 }
