@@ -91,7 +91,11 @@ public class CampaignServices {
         throw  new UnauthorizedOperationException("Esse usuário não tem permissão para realizar essa operação.");
     }
     public List<Campaign> getCampaignActive() {
-        List<Campaign> campaigns = repositoryCampaign.findByStatusTrueRemovedFalse();
+        List<Campaign> campaigns = repositoryCampaign.findByStatusTrueAndRemovedFalseOrderByTitleAsc();
+        return campaigns;
+    }
+    public List<Campaign> getCampaignActiveOrderDate() {
+         List<Campaign> campaigns = repositoryCampaign.findByStatusTrueAndRemovedFalseOrderByCreationDateAsc();
         return campaigns;
     }
 }

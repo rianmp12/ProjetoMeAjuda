@@ -38,8 +38,13 @@ public class CampaignController {
     }
 
     @GetMapping("/api/campaign/active")
-    public ResponseEntity<List<Campaign>> getCampaignActive(){
+    public ResponseEntity<List<Campaign>> getCampaignActiveTitle(){
         return ResponseEntity.ok(campaignServices.getCampaignActive());
+    }
+
+    @GetMapping("/api/campaign/active/orderDate")
+    public ResponseEntity<List<Campaign>> getCampaignActiveOrderDate(){
+        return ResponseEntity.ok(campaignServices.getCampaignActiveOrderDate());
     }
 
 }

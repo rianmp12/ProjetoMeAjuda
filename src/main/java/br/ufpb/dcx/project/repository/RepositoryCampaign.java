@@ -7,5 +7,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RepositoryCampaign extends JpaRepository<Campaign,Long> {
-    List<Campaign> findByStatusTrueRemovedFalse();
+    List<Campaign> findByStatusTrueAndRemovedFalseOrderByTitleAsc();
+    List<Campaign> findByStatusTrueAndRemovedFalseOrderByCreationDateAsc();
 }
+
