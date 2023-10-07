@@ -4,6 +4,8 @@ import br.ufpb.dcx.project.dto.CampaignStatusDTO;
 import br.ufpb.dcx.project.model.Campaign;
 import br.ufpb.dcx.project.model.Donate;
 import br.ufpb.dcx.project.service.CampaignServices;
+
+import java.util.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,6 +35,11 @@ public class CampaignController {
     @PostMapping("/auth/api/campaign/donate/{id}")
     public ResponseEntity<Donate> addDonate(@PathVariable Long id, @RequestHeader("Authorization") String header, @RequestBody Double value){
         return ResponseEntity.ok(campaignServices.addDonate(id,value, header));
+    }
+
+    @GetMapping("/api/campaign/active")
+    public ResponseEntity<List<Campaign>> getCampaignActive(){
+        return ResponseEntity.ok(campaignServices.getCampaignActive());
     }
 
 }

@@ -8,6 +8,9 @@ import br.ufpb.dcx.project.model.Donate;
 import br.ufpb.dcx.project.model.User;
 import br.ufpb.dcx.project.repository.RepositoryCampaign;
 import br.ufpb.dcx.project.repository.RepositoryUser;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -86,5 +89,9 @@ public class CampaignServices {
 
         }
         throw  new UnauthorizedOperationException("Esse usuário não tem permissão para realizar essa operação.");
+    }
+    public List<Campaign> getCampaignActive() {
+        List<Campaign> campaigns = repositoryCampaign.findByStatusTrueRemovedFalse();
+        return campaigns;
     }
 }
