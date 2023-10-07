@@ -2,6 +2,7 @@ package br.ufpb.dcx.project.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
@@ -73,7 +74,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
         problemDetails.setType(new URI("about:blank"));
         problemDetails.setTitle("Donate Inválido");
         problemDetails.setDetail(ex.getMessage());
-        return ResponseEntity.status(HttpStatus.OK).body(problemDetails);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(problemDetails);
     }
 
     @ExceptionHandler(UserExistException.class)
@@ -83,6 +84,17 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
         problemDetails.setTitle("Usuário já existe com esse email");
         problemDetails.setDetail(ex.getMessage());
         return ResponseEntity.status(HttpStatus.CONFLICT).body(problemDetails);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ProblemDetails> handleLoginInvalid(MethodArgumentNotValidException ex) throws URISyntaxException {
+        String fieldName = ex.getBindingResult().getFieldError().getField();
+        ProblemDetails problemDetails = new ProblemDetails();
+        problemDetails.setType(new URI("about:blank"));
+        problemDetails.setTitle("Erro de validação");
+        problemDetails.setDetail(ex.getMessage());
+        problemDetails.setField(fieldName);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(problemDetails);
     }
 
 

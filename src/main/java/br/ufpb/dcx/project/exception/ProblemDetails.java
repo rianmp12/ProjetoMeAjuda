@@ -12,5 +12,6 @@ public class ProblemDetails {
     private URI type;
     private String title;
     private String detail;
+    private String field;
 
 }
