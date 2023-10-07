@@ -51,4 +51,9 @@ public class CampaignController {
     public ResponseEntity<List<Campaign>> getCampaignClosedOrderDate(){
         return ResponseEntity.ok(campaignServices.getCampaignClosedOrderDate());
     }
+
+    @GetMapping("/api/campaign/goal")
+    public ResponseEntity<List<Campaign>> getCampaignGoal(){
+        return ResponseEntity.ok(campaignServices.getCampaignGoal());
+    }
 }

@@ -103,4 +103,9 @@ public class CampaignServices {
          List<Campaign> campaigns = repositoryCampaign.findByStatusFalseAndRemovedFalseOrderByCreationDateAsc();
         return campaigns;
     }
+
+    public List<Campaign> getCampaignGoal() {
+         List<Campaign> campaigns = repositoryCampaign.findByAchieveGoal();
+        return campaigns;
+    }
 }
