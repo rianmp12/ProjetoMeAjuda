@@ -1,6 +1,6 @@
 package br.ufpb.dcx.project.dto;
 
-import br.ufpb.dcx.project.enuns.Papel;
+import br.ufpb.dcx.project.enums.Papel;
 import br.ufpb.dcx.project.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,7 +15,7 @@ public class UserDTO {
 
     private String email;
     private String name;
-    private Papel papel = Papel.USER;
+    private Papel papel = Papel.REGULAR;
 
 
     public UserDTO getDTOUser(User user){

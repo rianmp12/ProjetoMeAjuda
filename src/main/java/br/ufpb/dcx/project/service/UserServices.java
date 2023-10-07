@@ -3,7 +3,7 @@ package br.ufpb.dcx.project.service;
 import br.ufpb.dcx.project.dto.PostUserDTO;
 import br.ufpb.dcx.project.dto.UserDTO;
 import br.ufpb.dcx.project.dto.UserLoginDTO;
-import br.ufpb.dcx.project.enuns.Papel;
+import br.ufpb.dcx.project.enums.Papel;
 import br.ufpb.dcx.project.exception.UnauthorizedOperationException;
 import br.ufpb.dcx.project.exception.UserExistException;
 import br.ufpb.dcx.project.exception.UserNotFoundException;

@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -51,6 +49,8 @@ public class Campaign {
     @Future(message = "A data de prazo para finalização da campanha deve estar no futuro")
     private LocalDateTime deadlineDate;
 
+    private boolean removed = false;
+
     public Donate addDonate(Donate donate){
         this.collected.add(donate);
         return donate;
@@ -72,5 +72,6 @@ public class Campaign {
         }
         return isStatus();
     }
+
 
 }

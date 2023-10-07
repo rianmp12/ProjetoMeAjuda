@@ -1,7 +1,8 @@
 package br.ufpb.dcx.project.dto;
 
 
-import br.ufpb.dcx.project.enuns.Papel;
+
+import br.ufpb.dcx.project.enums.Papel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,5 +17,5 @@ public class PostUserDTO {
     private String name;
     private String email;
     private String password;
-    private Papel papel = Papel.USER;
+    private Papel papel = Papel.REGULAR;
 }

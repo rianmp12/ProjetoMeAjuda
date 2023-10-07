@@ -1,10 +1,8 @@
 package br.ufpb.dcx.project.controller;
 
 import br.ufpb.dcx.project.dto.CampaignStatusDTO;
-import br.ufpb.dcx.project.dto.UserDTO;
 import br.ufpb.dcx.project.model.Campaign;
 import br.ufpb.dcx.project.model.Donate;
-import br.ufpb.dcx.project.model.User;
 import br.ufpb.dcx.project.service.CampaignServices;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,7 +1,7 @@
 package br.ufpb.dcx.project.model;
 
 import br.ufpb.dcx.project.dto.PostUserDTO;
-import br.ufpb.dcx.project.enuns.Papel;
+import br.ufpb.dcx.project.enums.Papel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,7 +30,7 @@ public class User {
 
     private String entity;
     private String userClass;
-    private Papel papel = Papel.USER;
+    private Papel papel = Papel.REGULAR;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Campaign> campaigns;
