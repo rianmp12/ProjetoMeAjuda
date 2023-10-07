@@ -47,4 +47,8 @@ public class CampaignController {
         return ResponseEntity.ok(campaignServices.getCampaignActiveOrderDate());
     }
 
+    @GetMapping("/api/campaign/closed/orderDate")
+    public ResponseEntity<List<Campaign>> getCampaignClosedOrderDate(){
+        return ResponseEntity.ok(campaignServices.getCampaignClosedOrderDate());
+    }
 }

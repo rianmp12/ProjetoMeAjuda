@@ -98,4 +98,9 @@ public class CampaignServices {
          List<Campaign> campaigns = repositoryCampaign.findByStatusTrueAndRemovedFalseOrderByCreationDateAsc();
         return campaigns;
     }
+
+    public List<Campaign> getCampaignClosedOrderDate() {
+         List<Campaign> campaigns = repositoryCampaign.findByStatusFalseAndRemovedFalseOrderByCreationDateAsc();
+        return campaigns;
+    }
 }
