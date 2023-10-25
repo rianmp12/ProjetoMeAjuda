@@ -2,7 +2,7 @@ package br.ufpb.dcx.project.controller;
 
 import br.ufpb.dcx.project.dto.CampaignStatusDTO;
 import br.ufpb.dcx.project.model.Campaign;
-import br.ufpb.dcx.project.model.Donate;
+import br.ufpb.dcx.project.model.Donation;
 import br.ufpb.dcx.project.service.CampaignServices;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -69,7 +69,7 @@ public class CampaignController {
             @ApiResponse(responseCode = "400", description = "Uma doação não pode ser atribuida a essa campanha."),
             @ApiResponse(responseCode = "403", description = "Usuário não tem permissão.")
     })
-    public ResponseEntity<Donate> addDonate(@PathVariable Long id, @RequestHeader("Authorization") String header, @RequestBody Double value){
+    public ResponseEntity<Donation> addDonate(@PathVariable Long id, @RequestHeader("Authorization") String header, @RequestBody Double value){
         return ResponseEntity.ok(campaignServices.addDonate(id,value, header));
     }
 

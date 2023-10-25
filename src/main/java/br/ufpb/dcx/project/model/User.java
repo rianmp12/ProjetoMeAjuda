@@ -37,7 +37,7 @@ public class User {
     private List<Campaign> campaigns;
 
     @OneToMany(mappedBy = "user")
-    private List<Donate> donates;
+    private List<Donation> donates;
 
     public User getUser(PostUserDTO userPost){
         this.name = userPost.getName();

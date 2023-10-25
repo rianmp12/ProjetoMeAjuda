@@ -4,7 +4,7 @@ import br.ufpb.dcx.project.dto.CampaignStatusDTO;
 import br.ufpb.dcx.project.enums.Papel;
 import br.ufpb.dcx.project.exception.*;
 import br.ufpb.dcx.project.model.Campaign;
-import br.ufpb.dcx.project.model.Donate;
+import br.ufpb.dcx.project.model.Donation;
 import br.ufpb.dcx.project.model.User;
 import br.ufpb.dcx.project.repository.RepositoryCampaign;
 import br.ufpb.dcx.project.repository.RepositoryUser;
@@ -70,13 +70,13 @@ public class CampaignServices {
     }
 
 
-    public Donate addDonate(Long id, Double value, String header){
+    public Donation addDonate(Long id, Double value, String header){
         User userLog = userServices.getUser(serviceAuthJWT.getSujeitoDoToken(header));
         Campaign campaign = this.repositoryCampaign.findById(id)
                 .orElseThrow(() -> new CampaignNotFoundException("Campanha não encontrada com esse id:" + id));
         if (campaign.getUser().getId().equals(userLog.getId()) ||userLog.getPapel().equals(Papel.ADMIN)){
             if (campaign.checkAndUpdateStatus() && value > 0.0){
-                Donate donate = new Donate();
+                Donation donate = new Donation();
                 donate.getDonate(campaign, userLog, value);
                 campaign.addDonate(donate);
                 userLog.getDonates().add(donate);
