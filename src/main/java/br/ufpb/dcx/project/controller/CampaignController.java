@@ -5,6 +5,7 @@ import br.ufpb.dcx.project.model.Campaign;
 import br.ufpb.dcx.project.model.Donate;
 import br.ufpb.dcx.project.service.CampaignServices;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
@@ -74,22 +75,57 @@ public class CampaignController {
     }
 
     @GetMapping("/api/campaign/active")
-    
+    @Operation(summary = "Listar campanhas ativas.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Campanha listada.",
+                    content = @Content),
+            @ApiResponse(responseCode = "404",
+                    description = "Campanha não listada.",
+                    content = @Content)
+    })
     public ResponseEntity<List<Campaign>> getCampaignActiveTitle(){
         return ResponseEntity.ok(campaignServices.getCampaignActive());
     }
 
     @GetMapping("/api/campaign/active/orderDate")
+    @Operation(summary = "Ativa a campanha por ordem de data.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Campanha ativada na ordem da data.",
+                    content = @Content),
+            @ApiResponse(responseCode = "404",
+                    description = "Campanha não encontrada.",
+                    content = @Content)
+    })
     public ResponseEntity<List<Campaign>> getCampaignActiveOrderDate(){
         return ResponseEntity.ok(campaignServices.getCampaignActiveOrderDate());
     }
 
     @GetMapping("/api/campaign/closed/orderDate")
+    @Operation(summary = "Listar campanhas encerradas por ordem de data.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Campanha encerrada listada com base na ordem.",
+                    content = @Content),
+            @ApiResponse(responseCode = "404",
+                    description = "Campanha não encontrada.",
+                    content = @Content)
+    })
     public ResponseEntity<List<Campaign>> getCampaignClosedOrderDate(){
         return ResponseEntity.ok(campaignServices.getCampaignClosedOrderDate());
     }
 
     @GetMapping("/api/campaign/goal")
+    @Operation(summary = "Lista as campanhas com meta concluida.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Campanha listada com sucesso.",
+                    content = @Content),
+            @ApiResponse(responseCode = "404",
+                    description = "Campanha não encontrada.",
+                    content = @Content)
+    })
     public ResponseEntity<List<Campaign>> getCampaignGoal(){
         return ResponseEntity.ok(campaignServices.getCampaignGoal());
     }
