@@ -65,7 +65,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
         problemDetails.setType(new URI("about:blank"));
         problemDetails.setTitle("Login Inválido");
         problemDetails.setDetail(ex.getMessage());
-        return ResponseEntity.status(HttpStatus.OK).body(problemDetails);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(problemDetails);
     }
 
     @ExceptionHandler(InvalidDonateException.class)
