@@ -42,7 +42,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(CampaignNotCloseException.class)
-    public ResponseEntity<ProblemDetails> handleUnauthorizedOperation(CampaignNotCloseException ex) throws URISyntaxException {
+    public ResponseEntity<ProblemDetails> handleCampaignNotClose(CampaignNotCloseException ex) throws URISyntaxException {
         ProblemDetails problemDetails = new ProblemDetails();
         problemDetails.setType(new URI("about:blank"));
         problemDetails.setTitle("Campanha não pode ser expirada");
@@ -51,7 +51,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(CampaignExpiredException.class)
-    public ResponseEntity<ProblemDetails> handleUnauthorizedOperation(CampaignExpiredException ex) throws URISyntaxException {
+    public ResponseEntity<ProblemDetails> handleCampaignExpired(CampaignExpiredException ex) throws URISyntaxException {
         ProblemDetails problemDetails = new ProblemDetails();
         problemDetails.setType(new URI("about:blank"));
         problemDetails.setTitle("Campanha expirada");
@@ -60,7 +60,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(LoginInvalidoException.class)
-    public ResponseEntity<ProblemDetails> handleLoginInvalid(LoginInvalidoException ex) throws URISyntaxException {
+    public ResponseEntity<ProblemDetails> handleLoginInvalido(LoginInvalidoException ex) throws URISyntaxException {
         ProblemDetails problemDetails = new ProblemDetails();
         problemDetails.setType(new URI("about:blank"));
         problemDetails.setTitle("Login Inválido");
@@ -69,7 +69,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(InvalidDonateException.class)
-    public ResponseEntity<ProblemDetails> handleLoginInvalid(InvalidDonateException ex) throws URISyntaxException {
+    public ResponseEntity<ProblemDetails> handleInvalidDonate(InvalidDonateException ex) throws URISyntaxException {
         ProblemDetails problemDetails = new ProblemDetails();
         problemDetails.setType(new URI("about:blank"));
         problemDetails.setTitle("Donate Inválido");
@@ -78,23 +78,12 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(UserExistException.class)
-    public ResponseEntity<ProblemDetails> handleLoginInvalid(UserExistException ex) throws URISyntaxException {
+    public ResponseEntity<ProblemDetails> handleUserException(UserExistException ex) throws URISyntaxException {
         ProblemDetails problemDetails = new ProblemDetails();
         problemDetails.setType(new URI("about:blank"));
         problemDetails.setTitle("Usuário já existe com esse email");
         problemDetails.setDetail(ex.getMessage());
         return ResponseEntity.status(HttpStatus.CONFLICT).body(problemDetails);
-    }
-
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ProblemDetails> handleLoginInvalid(MethodArgumentNotValidException ex) throws URISyntaxException {
-        String fieldName = ex.getBindingResult().getFieldError().getField();
-        ProblemDetails problemDetails = new ProblemDetails();
-        problemDetails.setType(new URI("about:blank"));
-        problemDetails.setTitle("Erro de validação");
-        problemDetails.setDetail(ex.getMessage());
-        problemDetails.setField(fieldName);
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(problemDetails);
     }
 
 

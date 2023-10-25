@@ -5,7 +5,9 @@ import br.ufpb.dcx.project.dto.ResponseLoginDTO;
 import br.ufpb.dcx.project.dto.UserLoginDTO;
 import br.ufpb.dcx.project.exception.LoginInvalidoException;
 import br.ufpb.dcx.project.filter.FiltroDeTokens;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import java.security.Key;
 import java.util.Date;
@@ -15,7 +17,7 @@ import io.jsonwebtoken.security.Keys;
 
 @Service
 public class ServiceAuthJWT {
-    @Autowired
+    @Autowired @Lazy
     private UserServices userServices;
     public static final Key TOKEN_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS512);
 
