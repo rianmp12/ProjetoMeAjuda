@@ -25,6 +25,15 @@ public class UserController {
     private ServiceAuthJWT serviceAuthJWT;
 
     @PostMapping("api/user")
+
+    @Operation(summary = "Possivel cadastro de usuário com e-mail e senha.",
+            description = "É possivel cadastrar um usuário contendo um e-mail e uma senha válida."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Usuário atualizado com sucesso"),
+            @ApiResponse(responseCode = "409", description = "Usuário já existente."),
+    })
+
     public ResponseEntity<UserDTO> addUser(@RequestBody PostUserDTO user){
         return ResponseEntity.status(HttpStatus.CREATED).body(userServices.addUser(user));
     }
@@ -57,11 +66,26 @@ public class UserController {
     }
 
     @GetMapping("/auth/api/user/{email}")
+    @Operation(summary = "Recuperar usuário com o e-mail.",
+            description = "É possivel recuperar o usuário utilizando o e-mail."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Usuário recuperado com sucesso"),
+            @ApiResponse(responseCode = "501", description = "Usuário não tem permissão.")
+    })
     public ResponseEntity<UserDTO> recoveryUser(@PathVariable("email") String email, @RequestHeader("Authorization") String header){
         return ResponseEntity.ok(userServices.recoveryUser(email, header));
     }
 
+
     @DeleteMapping("/auth/api/user/{email}")
+    @Operation(summary = "Deletar devidamente usuário logado.",
+            description = "É possivel deletar o usuário quando ele esta logado."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Usuário deletado com sucesso"),
+            @ApiResponse(responseCode = "501", description = "Usuário não tem permissão.")
+    })
     public ResponseEntity<UserDTO> removerUsuario(@PathVariable("email") String email, @RequestHeader("Authorization") String header){
         return ResponseEntity.ok(userServices.removeUser(email, header));
     }

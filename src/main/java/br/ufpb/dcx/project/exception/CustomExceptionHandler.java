@@ -85,6 +85,15 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
         problemDetails.setDetail(ex.getMessage());
         return ResponseEntity.status(HttpStatus.CONFLICT).body(problemDetails);
     }
+    
+    @ExceptionHandler(SecurityException.class)
+    public ResponseEntity<ProblemDetails> handleSecurityException(SecurityException ex) throws URISyntaxException {
+        ProblemDetails problemDetails = new ProblemDetails();
+        problemDetails.setType(new URI("about:blank"));
+        problemDetails.setTitle("Tokien Inválido");
+        problemDetails.setDetail(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(problemDetails);
+    }
 
 
 }
