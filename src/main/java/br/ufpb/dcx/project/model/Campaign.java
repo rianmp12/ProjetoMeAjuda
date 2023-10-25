@@ -41,7 +41,7 @@ public class Campaign {
     private Double meta;
 
     @OneToMany(mappedBy = "campaign", cascade = CascadeType.ALL)
-    private List<Donate> collected;
+    private List<Donation> collected;
 
     @PastOrPresent(message = "A data de criação da campanha deve estar no passado ou no presente")
     private LocalDateTime creationDate;
@@ -51,14 +51,14 @@ public class Campaign {
 
     private boolean removed = false;
 
-    public Donate addDonate(Donate donate){
+    public Donation addDonate(Donation donate){
         this.collected.add(donate);
         return donate;
     }
 
     public Double donateCollected(){
         Double collection = 0.0;
-        for (Donate d: this.collected){
+        for (Donation d: this.collected){
             collection+= d.getDonate();
         }
         return collection;

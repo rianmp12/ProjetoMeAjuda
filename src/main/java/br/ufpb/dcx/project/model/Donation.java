@@ -1,7 +1,6 @@
 package br.ufpb.dcx.project.model;
 
 
-import br.ufpb.dcx.project.dto.UserDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
@@ -10,7 +9,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @Getter
@@ -18,7 +16,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Donate {
+public class Donation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,7 +33,7 @@ public class Donate {
     private LocalDateTime dateDonate;
 
 
-    public Donate getDonate(Campaign campaign, User user, Double value){
+    public Donation getDonate(Campaign campaign, User user, Double value){
         this.user = user;
         this.donate = value;
         this.campaign = campaign;
