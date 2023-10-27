@@ -1,6 +1,8 @@
 package br.ufpb.dcx.project.model;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -9,6 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -23,6 +26,7 @@ public class Campaign {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 
     private boolean status = true;
@@ -41,10 +45,10 @@ public class Campaign {
     private Double meta;
 
     @OneToMany(mappedBy = "campaign", cascade = CascadeType.ALL)
-    private List<Donation> collected;
+    private List<Donation> collected = new ArrayList<>();
 
     @PastOrPresent(message = "A data de criação da campanha deve estar no passado ou no presente")
-    private LocalDateTime creationDate;
+    private LocalDateTime creationDate = LocalDateTime.now();
 
     @Future(message = "A data de prazo para finalização da campanha deve estar no futuro")
     private LocalDateTime deadlineDate;
@@ -72,6 +76,4 @@ public class Campaign {
         }
         return isStatus();
     }
-
-
 }

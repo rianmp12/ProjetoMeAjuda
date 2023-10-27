@@ -4,9 +4,11 @@ import br.ufpb.dcx.project.dto.PostUserDTO;
 import br.ufpb.dcx.project.dto.UserDTO;
 import br.ufpb.dcx.project.dto.UserLoginDTO;
 import br.ufpb.dcx.project.enums.Papel;
+import br.ufpb.dcx.project.exception.CampaignNotFoundException;
 import br.ufpb.dcx.project.exception.UnauthorizedOperationException;
 import br.ufpb.dcx.project.exception.UserExistException;
 import br.ufpb.dcx.project.exception.UserNotFoundException;
+import br.ufpb.dcx.project.model.Campaign;
 import br.ufpb.dcx.project.model.User;
 import br.ufpb.dcx.project.repository.RepositoryUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +29,7 @@ public class UserServices {
 
 
     public List<UserDTO> getAllUserDTO(){
-        List<User> users =  repositoryUsers.findAll();
+        List<User> users =  repositoryUsers.findByStatusUserIsTrue();
 
         List<UserDTO> dtoUsers = new ArrayList<>();
         for(User user: users){
@@ -75,9 +77,12 @@ public class UserServices {
     public UserDTO removeUser(String email, String authHeader) {
         User userDelete = this.getUser(email);
         User userLog = this.getUser(serviceAuthJWT.getSujeitoDoToken(authHeader));
-        if(userLog.getPapel().equals(Papel.ADMIN) || userLog.getEmail().equals(userDelete.getEmail()))
-            repositoryUsers.delete(userDelete);
-        else throw new UnsupportedOperationException("Usuário não tem permissão.");
+        if (userLog.getPapel().equals(Papel.ADMIN) || userLog.getEmail().equals(userDelete.getEmail())) {
+            Optional<User> optUsuario = repositoryUsers.findByEmail(email);
+            optUsuario.get().setStatusUser(false);
+            repositoryUsers.save(optUsuario.get());
+        }
+
         return UserDTO.from(userDelete);
     }
 

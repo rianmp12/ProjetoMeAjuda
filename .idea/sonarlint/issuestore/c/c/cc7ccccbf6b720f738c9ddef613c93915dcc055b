@@ -1,0 +1,13 @@
+
+u
+java:S1450	"ZRemove the "description" field and declare it as a local variable in the relevant methods.(ÇÓæâýÿÿÿÿ
+k
+java:S1450"URemove the "status" field and declare it as a local variable in the relevant methods.(äÎ£¦
+o
+java:S1450"TRemove the "title" field and declare it as a local variable in the relevant methods.(åõò¹ýÿÿÿÿ
+@
+java:S1068"*Remove this unused "status" private field.(äÎ£¦
+D
+java:S1068")Remove this unused "title" private field.(åõò¹ýÿÿÿÿ
+J
+java:S1068	"/Remove this unused "description" private field.(ÇÓæâýÿÿÿÿ

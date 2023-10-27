@@ -1,15 +1,21 @@
 package br.ufpb.dcx.project.controller;
 
 import br.ufpb.dcx.project.dto.CampaignStatusDTO;
+import br.ufpb.dcx.project.dto.DonationDTO;
+import br.ufpb.dcx.project.dto.DonationListDTO;
 import br.ufpb.dcx.project.model.Campaign;
 import br.ufpb.dcx.project.model.Donation;
 import br.ufpb.dcx.project.service.CampaignServices;
+import br.ufpb.dcx.project.service.DonateServices;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 import java.util.*;
+
+import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,11 +23,14 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class CampaignController {
 
+    @Autowired
     private CampaignServices campaignServices;
 
+    @Autowired
+    private DonateServices donateServices;
 
 
-    @PostMapping("/auth/api/campaign")
+    @PostMapping("auth/api/campaign")
     @Operation(summary = "Adiciona uma campanha com um usuário devidamente cadastrado.",
             description = "É possivel adicionar uma campanha quando o usuário esta logado."
     )
@@ -60,7 +69,7 @@ public class CampaignController {
         return ResponseEntity.ok(campaignServices.removeCampaign(id, header));
     }
 
-    @PostMapping("/auth/api/campaign/donate/{id}")
+    @PostMapping("/auth/api/campaign/donation/{id}")
     @Operation(summary = "Adiciona uma doação com um usuário devidamente logado.",
             description = "É possivel adicionar uma doação quando o usuário esta logado e valor maior que 0."
     )
@@ -70,7 +79,7 @@ public class CampaignController {
             @ApiResponse(responseCode = "400", description = "Uma doação não pode ser atribuida a essa campanha."),
             @ApiResponse(responseCode = "403", description = "Usuário não tem permissão.")
     })
-    public ResponseEntity<Donation> addDonate(@PathVariable Long id, @RequestHeader("Authorization") String header, @RequestBody Double value){
+    public ResponseEntity<DonationDTO> addDonate(@PathVariable Long id, @RequestHeader("Authorization") String header, @RequestBody Donation value){
         return ResponseEntity.ok(campaignServices.addDonate(id,value, header));
     }
 
@@ -128,5 +137,10 @@ public class CampaignController {
     })
     public ResponseEntity<List<Campaign>> getCampaignGoal(){
         return ResponseEntity.ok(campaignServices.getCampaignGoal());
+    }
+
+    @GetMapping("api/donations")
+    public ResponseEntity<List<DonationListDTO>> getDonations(){
+        return ResponseEntity.ok(donateServices.getDonations());
     }
 }

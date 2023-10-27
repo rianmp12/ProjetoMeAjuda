@@ -16,6 +16,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class UserController {
 
@@ -37,7 +39,22 @@ public class UserController {
     public ResponseEntity<UserDTO> addUser(@RequestBody PostUserDTO user){
         return ResponseEntity.status(HttpStatus.CREATED).body(userServices.addUser(user));
     }
-    @PostMapping("api/login")
+
+
+
+    @GetMapping("api/user")
+    @Operation(summary = "Lista todos os usuários do sistema",
+            description = "É possível lista todos os usuários do sistema"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Usuário logado/autenticado com sucesso")
+    })
+    public ResponseEntity<List<UserDTO>> getAllUser(){
+        return ResponseEntity.ok(userServices.getAllUserDTO());
+    }
+
+
+    @PostMapping("auth/login")
     @ResponseStatus(code = HttpStatus.OK)
      @Operation(summary = "Autentica o usuário devidamente cadastrado.",
             description = "É preciso informar o e-mail de um usuário cadastrado no sistema e a senha " +

@@ -24,14 +24,14 @@ public class User {
     private Long id;
 
     private String name;
-    @UniqueElements
     private String email;
     private String password;
     private String tell;
-
     private String entity;
     private String userClass;
     private Papel papel = Papel.REGULAR;
+
+    private boolean statusUser = true;
 
     @OneToMany(mappedBy = "user")
     private List<Campaign> campaigns;

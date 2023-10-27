@@ -30,7 +30,7 @@ public class Donation {
     private Campaign campaign;
     @Positive(message = "O valor deve ser maior que zero")
     private Double donate;
-    private LocalDateTime dateDonate;
+    private LocalDateTime dateDonate = LocalDateTime.now();
 
 
     public Donation getDonate(Campaign campaign, User user, Double value){
